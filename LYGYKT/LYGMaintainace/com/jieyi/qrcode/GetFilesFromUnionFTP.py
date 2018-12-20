@@ -4,9 +4,9 @@
 
 import ftplib,datetime
 
-host = 'uisftp.chinaums.com'
-username = '10020035900000'
-password = 'Ab123456'
+host = ''#url
+username = ''#username
+password = ''#password
 
 ftp = ftplib.FTP(host)  # 实例化FTP对象
 ftp.login(username, password)  # 登录
