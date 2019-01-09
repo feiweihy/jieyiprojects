@@ -1,4 +1,6 @@
-import binascii,datetime,random
+import binascii
+import datetime
+import random
 
 
 # Convert bytes to string
@@ -73,10 +75,10 @@ def add_right_space_for_bytes(self, charset, length):
 
 # right space for bytes length
 def reverse_str(self):
-    return_str = '';
-    self = self + '' if len(self)%2 == 0 else '0' + self
+    return_str = ''
+    self = self + '' if len(self) % 2 == 0 else '0' + self
     self_bytes_len = len(self)
-    for i in range(self_bytes_len//2):
+    for i in range(self_bytes_len // 2):
         return_str += self[self_bytes_len-2-i*2:self_bytes_len-i*2]
     return return_str
 
@@ -88,8 +90,8 @@ def str_xor_str(str1, str2):
     if len(str1) % 2 != 0:
         return 'ERR2'
     bytes_new = b''
-    for i in range(len(str1)//2):
-        xor_result = (binascii.a2b_hex(str1[i * 2:(i + 1) * 2])[0]^binascii.a2b_hex(str2[i * 2:(i + 1) * 2])[0])
+    for i in range(len(str1) // 2):
+        xor_result = (binascii.a2b_hex(str1[i * 2: (i + 1) * 2])[0] ^ binascii.a2b_hex(str2[i * 2: (i + 1) * 2])[0])
         bytes_new += bytes([xor_result])
     return_str = bytes2hex_str(bytes_new)
     return return_str
@@ -109,4 +111,4 @@ if __name__ == '__main__':
     print(add_right_space_for_bytes('牛', 'GBK', 10))
     print(reverse_str('112233445566'))
     print(reverse_str('11223344556'))
-    print(str_xor_str('112233445566','665544332211'))
+    print(str_xor_str('112233445566', '665544332211'))
