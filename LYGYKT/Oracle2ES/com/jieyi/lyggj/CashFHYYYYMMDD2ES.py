@@ -5,10 +5,11 @@
 import cx_Oracle
 import requests
 import json
+import sys
 
 es_ip = '127.0.0.1'
 es_port = '9200'
-es_index = 't_log_cash_test5'
+es_index = 't_log_cash_test6'
 
 #创建es的索引
 def create_es_index():
@@ -70,13 +71,16 @@ def insert_into_es(row):
 
 #函数入口
 if __name__ == '__main__':
+    print('=========='+sys.argv[1])
+    cchssettdate = sys.argv[1]
+    cchsmonth = cchssettdate[4:6]
     try:
         # 初始化，创建es索引
         create_es_index()
         # 连接oracle取数据
         conn_core = cx_Oracle.connect('jtb_lygbus/111111@192.168.1.96:1521/orcl')
         curs_core = conn_core.cursor()
-        sql_t_log_cash = 'SELECT * FROM T_LOG_CASHFH'
+        sql_t_log_cash = 'SELECT * FROM T_LOG_DEBITDETAILM'+cchsmonth+' where cchserrcode=0'
         rr = curs_core.execute(sql_t_log_cash)
         #这里加一段oracle数据总数和es数据总数是否一样，不一样，则清空es，然后再插入，如果一样，则直接跳过，不用做迁移了
 
