@@ -52,7 +52,7 @@ es_port = '9200'
 # print(response)
 # print(response.text)
 
-# print(requests.delete('http://'+es_ip+':'+es_port+'/t_log_cash_test3').text)
+print(requests.delete('http://'+es_ip+':'+es_port+'/t_log_cash_test').text)
 
 # print(requests.get('http://'+es_ip+':'+es_port+'/book/_id/GGE4mmkBZ0bZ5jInRZJR').text)
-print(requests.get('http://'+es_ip+':'+es_port+'/t_log_cash_test5/_search?q=*&pretty').text)
+# print(requests.get('http://'+es_ip+':'+es_port+'/t_log_cash_test5/_search?q=*&pretty').text)
