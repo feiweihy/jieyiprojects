@@ -370,16 +370,16 @@ if __name__ == '__main__':
         # 连接oracle取数据
         conn_core = cx_Oracle.connect(oracle_username+'/'+oracle_userpwd+'@'+oracle_ip+':'+oracle_port+'/'+oracle_sid)
         curs_core = conn_core.cursor()
-        sql_t_log_cash = 'SELECT * FROM T_LOG_DEBITDETAILM'+cchsmonth+' where cchserrcode=0'
+        sql_t_log_cash = 'SELECT * FROM T_LOG_DEBITDETAILM'+cchsmonth+' where cchssettdate='+cchssettdate+' and cchserrcode=0'
         rr = curs_core.execute(sql_t_log_cash)
         # 这里加一段oracle数据总数和es数据总数是否一样，不一样，则清空es，然后再插入，如果一样，则直接跳过，不用做迁移了
-        sql_t_log_cash_count = 'SELECT COUNT(1) FROM T_LOG_DEBITDETAILM' + cchsmonth + ' where cchserrcode=0'
+        sql_t_log_cash_count = 'SELECT COUNT(1) FROM T_LOG_DEBITDETAILM' + cchsmonth + ' where cchssettdate='+cchssettdate+' and cchserrcode=0'
         curs_core_for_count = conn_core.cursor()
         count = curs_core_for_count.execute(sql_t_log_cash_count)
         sum_in_oracle = curs_core_for_count.fetchone()[0]
         headers = {'Content-Type': 'application/json'}
         response = requests.post('http://' + es_ip + ':' + es_port + '/' + es_index + '/bus/_count', headers=headers,
-                                 data='{"query":{"match_all":{}}}')
+                                 data='{"query": {"match" : {"cchssettdate": "'+cchssettdate+'"}}}')
         row_dict = dict()
         row_dict = json.loads(response.text)
         sum_in_es = row_dict['count']
@@ -388,7 +388,7 @@ if __name__ == '__main__':
             headers = {'Content-Type': 'application/json'}
             response = requests.post('http://' + es_ip + ':' + es_port + '/' + es_index + '/bus/_delete_by_query?conflicts=proceed',
                                      headers=headers,
-                                     data='{"query":{"match_all":{}}}')
+                                     data='{"query": {"match" : {"cchssettdate": "'+cchssettdate+'"}}}')
             for row in rr:
                 print(row)
                 insert_into_es(row)
