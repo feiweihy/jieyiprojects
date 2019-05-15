@@ -19,7 +19,7 @@ def create_es_index():
     else:
         _index_mappings = {
             'mappings': {
-                "bus": {
+                "coupon": {
                     "properties": {
                         "coupon_id": {
                             "type": "keyword"
@@ -28,11 +28,83 @@ def create_es_index():
                             "type": "text"
                         },
                         "activity_id": {
-                            "type": "text"
+                            "type": "text",
+                            "fielddata": True
                         },
                         "activity_instid": {
                             "type": "text",
                             "fielddata": True
+                        },
+                        "activity_instname": {
+                            "type": "text",
+                            "fielddata": True
+                        },
+                        "activity_mchntid": {
+                            "type": "text",
+                            "fielddata": True
+                        },
+                        "activity_mchntname": {
+                            "type": "text"
+                        },
+                        "discountrule_id": {
+                            "type": "text"
+                        },
+                        "coupon_type": {
+                            "type": "text"
+                        },
+                        "coupon_value": {
+                            "type": "integer"
+                        },
+                        "coupon_nickname": {
+                            "type": "text"
+                        },
+                        "use_begin_time": {
+                            "type": "text"
+                        },
+                        "use_end_time": {
+                            "type": "text"
+                        },
+                        "coupon_usagecount": {
+                            "type": "integer"
+                        },
+                        "surplus_usagecount": {
+                            "type": "integer"
+                        },
+                        "off_value_per_use": {
+                            "type": "integer"
+                        },
+                        "send_date": {
+                            "type": "text"
+                        },
+                        "send_time": {
+                            "type": "text"
+                        },
+                        "get_user_phone": {
+                            "type": "text"
+                        },
+                        "get_user_joininstid": {
+                            "type": "text"
+                        },
+                        "get_user_joininst_uniid": {
+                            "type": "text"
+                        },
+                        "coupon_holder": {
+                            "type": "text"
+                        },
+                        "writeoff_date": {
+                            "type": "text"
+                        },
+                        "writeoff_time": {
+                            "type": "text"
+                        },
+                        "send_batch_id": {
+                            "type": "text"
+                        },
+                        "rec_crt_time": {
+                            "type": "text"
+                        },
+                        "rec_upd_time": {
+                            "type": "text"
                         }
                     }
                 }
