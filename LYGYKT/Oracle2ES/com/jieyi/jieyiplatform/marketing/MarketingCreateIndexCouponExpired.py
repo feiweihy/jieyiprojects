@@ -9,7 +9,7 @@ import sys
 
 es_ip = '192.168.1.169'
 es_port = '9200'
-es_index = 't_coupon_used'
+es_index = 't_coupon_expired'
 
 #创建es的索引
 def create_es_index():
