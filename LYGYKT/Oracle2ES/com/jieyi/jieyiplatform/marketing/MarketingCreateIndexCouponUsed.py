@@ -7,13 +7,19 @@ import requests
 import json
 import sys
 
-es_ip = '192.168.1.169'
+#es_ip = '192.168.1.169'
+es_ip = 'es-cn-mp9152m5e000quczd.public.elasticsearch.aliyuncs.com'
 es_port = '9200'
 es_index = 't_coupon_used'
 
 #创建es的索引
 def create_es_index():
-    response = requests.get('http://' + es_ip + ':' + es_port + '/'+es_index)
+    #response = requests.get('http://' + es_ip + ':' + es_port + '/'+es_index)
+    s = requests.Session()
+    s.auth = ('elastic', 'Zht@2019%(yx')
+    response = s.get('http://' + es_ip + ':' + es_port + '/'+es_index)
+    print(response.status_code)
+    print('11111111111111')
     if response.status_code == 200:
         print('index exists ,no need to create it!')
     else:
@@ -22,7 +28,8 @@ def create_es_index():
                 "coupon": {
                     "properties": {
                         "coupon_id": {
-                            "type": "keyword"
+                            "type": "keyword",
+                            "fielddata": True
                         },
                         "coupon_status": {
                             "type": "text"
@@ -44,6 +51,9 @@ def create_es_index():
                             "fielddata": True
                         },
                         "activity_mchntname": {
+                            "type": "text"
+                        },
+                        "activity_coupon_type": {
                             "type": "text"
                         },
                         "discountrule_id": {
@@ -88,7 +98,13 @@ def create_es_index():
                         "get_user_joininst_uniid": {
                             "type": "text"
                         },
+                        "get_user_joininst_name": {
+                            "type": "text"
+                        },
                         "coupon_holder": {
+                            "type": "text"
+                        },
+                        "coupon_holder_name": {
                             "type": "text"
                         },
                         "writeoff_date": {
@@ -111,7 +127,8 @@ def create_es_index():
             }
         }
         headers = {'Content-Type': 'application/json'}
-        response = requests.put('http://'+es_ip+':'+es_port+'/'+es_index+'/coupon/1', headers=headers, data=json.dumps(_index_mappings))
+        #response = requests.put('http://'+es_ip+':'+es_port+'/'+es_index+'/coupon/1', headers=headers, data=json.dumps(_index_mappings))
+        response = s.put('http://' + es_ip + ':' + es_port + '/' + es_index + '/coupon/1', headers=headers,data=json.dumps(_index_mappings))
         print(response)
         print(response.text)
 
