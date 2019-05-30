@@ -7,8 +7,8 @@ import requests
 import json
 import sys
 
-#es_ip = '192.168.1.169'
-es_ip = 'es-cn-mp9152m5e000quczd.public.elasticsearch.aliyuncs.com'
+es_ip = '192.168.1.169'
+#es_ip = 'es-cn-mp9152m5e000quczd.public.elasticsearch.aliyuncs.com'
 es_port = '9200'
 es_index = 't_coupon_dtl'
 
@@ -112,10 +112,10 @@ def create_es_index():
                             "off_value_per_use": {
                                 "type": "string"
                             },
-                            "send_date": {
+                            "txn_date": {
                                 "type": "string"
                             },
-                            "send_time": {
+                            "txn_time": {
                                 "type": "string"
                             },
                             "get_user_phone": {
