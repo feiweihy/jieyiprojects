@@ -33,6 +33,9 @@ def create_es_index():
                         "cen_date": {
                             "type": "string"
                         },
+                        "cen_time": {
+                            "type": "string"
+                        },
                         "term_manufactor": {
                             "type": "text",
                             "fielddata": True
@@ -83,7 +86,7 @@ def create_es_index():
         }
         headers = {'Content-Type': 'application/json'}
         #response = requests.put('http://'+es_ip+':'+es_port+'/'+es_index+'/coupon/1', headers=headers, data=json.dumps(_index_mappings))
-        response = s.put('http://' + es_ip + ':' + es_port + '/' + es_index + '/coupon/1', headers=headers,data=json.dumps(_index_mappings))
+        response = s.put('http://' + es_ip + ':' + es_port + '/' + es_index + '/gpsdtl/1', headers=headers,data=json.dumps(_index_mappings))
         print(response)
         print(response.text)
 

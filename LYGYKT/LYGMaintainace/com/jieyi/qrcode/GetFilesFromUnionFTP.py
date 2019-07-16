@@ -2,7 +2,7 @@
 从银联商户的FTP上获取对账文件
 '''
 
-import ftplib,datetime
+import ftplib,datetime,os
 
 host = ''#url
 username = ''#username
@@ -35,16 +35,17 @@ print(files)
 filesNew = [x for x in files if '.txt' in x and getYesterday() in x]
 print(filesNew)
 
-def ftp_download(localpath,file):
+def ftp_download(localpath,localpathtmp,file):
      '''以二进制形式下载文件'''
      file_remote = file
-     file_local = localpath+file
+     file_localtmp = localpathtmp+file
      bufsize = 1024  # 设置缓冲器大小
-     fp = open(file_local, 'wb')
+     fp = open(file_localtmp, 'wb')
      ftp.retrbinary('RETR %s' % file_remote, fp.write, bufsize)
      fp.close()
+     os.rename(file_localtmp, localpath+file)
 
 for file in filesNew:
     print(file)
-    ftp_download("E:\\111\\lygzhzf\\recv\\",file)
+    ftp_download("E:\\111\\lygzhzf\\recv\\","E:\\111\\lygzhzf\\recv\\",file)
 
